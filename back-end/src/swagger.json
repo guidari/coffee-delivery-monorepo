@@ -1,0 +1,197 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "RentX API Documentation",
+    "description": "API for a rental car service API.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "guilhermedatilio@gmail.com"
+    }
+  },
+  "paths": {
+    "/products": {
+      "post": {
+        "tags": ["Products"],
+        "summary": "Create a product",
+        "description": "Creates a new Product, if it wasn't already created.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "type": "number"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "tags": {
+                    "type": "array"
+                  },
+                  "image": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Coffe Sample",
+                  "description": "Sample description",
+                  "quantity": 1,
+                  "price": 10,
+                  "tags": ["sampletag"],
+                  "image": "american-express.png"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Category already exists!"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Products"],
+        "summary": "List all products.",
+        "description": "List all created products.",
+        "responses": {
+          "200": {
+            "description": "Success!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "quantity": {
+                        "type": "number"
+                      },
+                      "price": {
+                        "type": "number"
+                      },
+                      "tags": {
+                        "type": "array"
+                      },
+                      "image": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "delete": {
+        "tags": ["Products"],
+        "summary": "Delete a product.",
+        "description": "Deletes a product by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the product to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Product deleted successfully. No content is returned."
+          },
+          "404": {
+            "description": "Product not found."
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Products"],
+        "summary": "Update a product's quantity.",
+        "description": "Updates the `quantity` of a product by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the product to update",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "quantity": {
+                    "type": "number",
+                    "description": "The new quantity for the product."
+                  }
+                },
+                "required": ["quantity"],
+                "example": {
+                  "quantity": 5
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Quantity updated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "quantity": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "example": {
+                  "id": "123",
+                  "quantity": 5
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request body."
+          },
+          "404": {
+            "description": "Product not found."
+          }
+        }
+      }
+    }
+  }
+}
