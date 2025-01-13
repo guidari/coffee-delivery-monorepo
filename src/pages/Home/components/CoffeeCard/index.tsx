@@ -130,7 +130,10 @@ export default function CoffeeCard({ coffee }: ICoffeeItemProps) {
   return (
     <CoffeeCardContainer>
       <Coffeeonatiner>
-        <CoffeeImage src={coffee?.image} alt={coffee?.name} />
+        <CoffeeImage
+          src={`../../../../../src/assets/images/coffees/${coffee?.image}`}
+          alt={coffee?.name}
+        />
       </Coffeeonatiner>
 
       <CoffeeTagsContainer>

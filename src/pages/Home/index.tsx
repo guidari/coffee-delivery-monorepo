@@ -1,5 +1,5 @@
 import { coffeesList } from "../../api/coffeeMock";
-import CoffeeCard from "./components/CoffeeCard";
+import CoffeeCard, { ICoffee } from "./components/CoffeeCard";
 import InfoTextGrid from "./components/InfoTextGrid";
 import {
   BannerContainer,
@@ -16,8 +16,33 @@ import Package from "../../assets/images/package.svg";
 import Timer from "../../assets/images/timer.svg";
 import CoffeeCircle from "../../assets/images/coffeeCircle.svg";
 import Banner from "../../assets/images/banner.svg";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [coffeeData, setCoffeeData] = useState([]);
+  const [loading, setLoading] = useState(true); // To handle loading state
+  const [error, setError] = useState(null); // To store error messages
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true); // Start loading
+        const response = await axios.get("http://localhost:3333/products");
+        console.log("response", response.data);
+        setCoffeeData(response.data); // Set fetched data to state
+      } catch (err: any) {
+        setError(err.message); // Set error if request fails
+      } finally {
+        setLoading(false); // Stop loading
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+
   return (
     <HomeContainer>
       <InfoContainer>
@@ -50,13 +75,9 @@ export default function Home() {
       <h2 id="main">Nossos cafés</h2>
 
       <CoffeesGird>
-        {coffeesList.map((coffee) => {
+        {coffeeData?.map((coffee) => {
           return <CoffeeCard key={coffee.id} coffee={coffee} />;
         })}
-
-        {/* <CoffeeCard />
-        <CoffeeCard />
-        <CoffeeCard /> */}
       </CoffeesGird>
     </HomeContainer>
   );

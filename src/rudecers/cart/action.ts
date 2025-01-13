@@ -24,12 +24,17 @@ export function removeCoffeeAction(id: number) {
   };
 }
 
-export function insertMoreCoffeeAction(id: number, count: number) {
+export function insertMoreCoffeeAction(
+  id: number,
+  count: number,
+  numberCount: number
+) {
   return {
     type: "INSERT_MORE_COFFEE",
     payload: {
       id,
       count,
+      numberCount,
     },
   };
 }

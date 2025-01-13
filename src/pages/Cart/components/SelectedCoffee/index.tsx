@@ -61,7 +61,7 @@ export default function SelectedCoffee({
       return;
     }
 
-    insertMoreCoffee(id, count);
+    insertMoreCoffee(id, count, 1);
     setCount(newCount);
   }
 
@@ -78,7 +78,7 @@ export default function SelectedCoffee({
       return;
     }
 
-    insertMoreCoffee(id, count);
+    insertMoreCoffee(id, count, -1);
     setCount(newCount);
   }
 
@@ -89,7 +89,10 @@ export default function SelectedCoffee({
   return (
     <SelectedCoffeeContainer key={id}>
       <SelectedCoffeeImage>
-        <img src={image} alt={name} />
+        <img
+          src={`../../../../../src/assets/images/coffees/${image}`}
+          alt={name}
+        />
       </SelectedCoffeeImage>
       <InfoContainer>
         <ContainerNamePrice>

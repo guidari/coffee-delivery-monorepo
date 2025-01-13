@@ -32,10 +32,11 @@ export default function cartReducer(state: ICoffeeCart[], action: any) {
       const elementIndex = state.findIndex(
         (item) => item.id === action.payload.id
       );
+
       const newArray = [...state];
       newArray[elementIndex] = {
         ...newArray[elementIndex],
-        quantity: action.payload.count + 1,
+        quantity: action.payload.count + action.payload.numberCount,
       };
       return newArray;
     default:
