@@ -75,7 +75,7 @@ export default function Home() {
       <h2 id="main">Nossos cafés</h2>
 
       <CoffeesGird>
-        {coffeeData?.map((coffee) => {
+        {coffeeData?.map((coffee: any) => {
           return <CoffeeCard key={coffee.id} coffee={coffee} />;
         })}
       </CoffeesGird>
